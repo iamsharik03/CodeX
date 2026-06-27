@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wild Animals Photo Gallery</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #1f2933;
+      background: #f4f7f2;
+    }
+
+    header {
+      min-height: 42vh;
+      display: grid;
+      align-items: end;
+      padding: 48px 7vw;
+      color: #fff;
+      background:
+        linear-gradient(rgba(20, 33, 24, 0.24), rgba(20, 33, 24, 0.72)),
+        url("https://images.unsplash.com/photo-1546182990-dffeafbe841d?auto=format&fit=crop&w=1800&q=80") center / cover;
+    }
+
+    .hero {
+      max-width: 760px;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 7vw, 5.8rem);
+      line-height: 0.96;
+      letter-spacing: 0;
+      margin-bottom: 18px;
+    }
+
+    .hero p {
+      max-width: 620px;
+      font-size: 1.08rem;
+      line-height: 1.65;
+      color: #eef5ea;
+    }
+
+    main {
+      width: min(1180px, 92vw);
+      margin: 0 auto;
+      padding: 28px 0 48px;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    button {
+      min-height: 40px;
+      border: 1px solid #bec9b8;
+      border-radius: 6px;
+      padding: 0 15px;
+      color: #263228;
+      background: #fff;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background 180ms ease, border-color 180ms ease, color 180ms ease;
+    }
+
+    button:hover,
+    button.active {
+      color: #fff;
+      border-color: #2f5d3a;
+      background: #2f5d3a;
+    }
+
+    .counter {
+      font-size: 0.95rem;
+      color: #536052;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      position: relative;
+      min-height: 310px;
+      overflow: hidden;
+      border-radius: 8px;
+      background: #dfe7dc;
+      box-shadow: 0 16px 34px rgba(34, 50, 35, 0.14);
+    }
+
+    .card img {
+      width: 100%;
+      height: 100%;
+      min-height: 310px;
+      display: block;
+      object-fit: cover;
+      transition: transform 280ms ease, filter 280ms ease;
+    }
+
+    .card:hover img {
+      transform: scale(1.06);
+      filter: saturate(1.08);
+    }
+
+    .caption {
+      position: absolute;
+      inset: auto 0 0 0;
+      padding: 46px 18px 17px;
+      color: #fff;
+      background: linear-gradient(transparent, rgba(13, 22, 16, 0.88));
+    }
+
+    .caption h2 {
+      margin-bottom: 5px;
+      font-size: 1.35rem;
+      letter-spacing: 0;
+    }
+
+    .caption p {
+      font-size: 0.92rem;
+      line-height: 1.45;
+      color: #e7efe5;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @media (max-width: 640px) {
+      header {
+        min-height: 36vh;
+        padding: 34px 6vw;
+      }
+
+      .toolbar {
+        align-items: flex-start;
+      }
+
+      .counter {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <section class="hero">
+      <h1>Wild Animals</h1>
+      <p>A photo gallery of powerful, graceful, and fascinating creatures from forests, savannas, wetlands, mountains, and icy wilderness.</p>
+    </section>
+  </header>
+
+  <main>
+    <section class="toolbar" aria-label="Gallery controls">
+      <div class="filters" aria-label="Animal category filters">
+        <button class="active" type="button" data-filter="all">All</button>
+        <button type="button" data-filter="big-cats">Big Cats</button>
+        <button type="button" data-filter="herbivores">Herbivores</button>
+        <button type="button" data-filter="birds">Birds</button>
+        <button type="button" data-filter="arctic">Arctic</button>
+      </div>
+      <p class="counter" id="counter">Showing all photos</p>
+    </section>
+
+    <section class="gallery" id="gallery" aria-label="Wild animals photo gallery">
+      <article class="card" data-category="big-cats">
+        <img src="https://images.unsplash.com/photo-1552410260-0fd9b577afa6?auto=format&fit=crop&w=900&q=80" alt="Lion resting in golden grass" />
+        <div class="caption">
+          <h2>Lion</h2>
+          <p>The iconic big cat of open grasslands and savannas.</p>
+        </div>
+      </article>
+
+      <article class="card" data-category="big-cats">
+        <img src="https://images.unsplash.com/photo-1561731216-c3a4d99437d5?auto=format&fit=crop&w=900&q=80" alt="Tiger walking through forest cover" />
+        <div class="caption">
+          <h2>Tiger</h2>
+          <p>A solitary hunter known for strength, stealth, and striking stripes.</p>
+        </div>
+      </article>
+
+      <article class="card" data-category="herbivores">
+        <img src="https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?auto=format&fit=crop&w=900&q=80" alt="Elephant standing in the wild" />
+        <div class="caption">
+          <h2>Elephant</h2>
+          <p>Highly social, intelligent giants with remarkable memory.</p>
+        </div>
+      </article>
+
+      <article class="card" data-category="herbivores">
+        <img src="https://images.unsplash.com/photo-1547721064-da6cfb341d50?auto=format&fit=crop&w=900&q=80" alt="Giraffe looking across the landscape" />
+        <div class="caption">
+          <h2>Giraffe</h2>
+          <p>The tallest land animal, built to browse high tree canopies.</p>
+        </div>
+      </article>
+
+      <article class="card" data-category="birds">
+        <img src="https://images.unsplash.com/photo-1511823794984-b87716139b88?auto=format&fit=crop&w=900&q=80" alt="Colorful parrot perched on a branch" />
+        <div class="caption">
+          <h2>Parrot</h2>
+          <p>Bright, clever birds found in tropical and subtropical habitats.</p>
+        </div>
+      </article>
+
+      <article class="card" data-category="birds">
+        <img src="https://images.unsplash.com/photo-1549608276-5786777e6587?auto=format&fit=crop&w=900&q=80" alt="Eagle with wings spread in flight" />
+        <div class="caption">
+          <h2>Eagle</h2>
+          <p>A sharp-eyed raptor built for speed, power, and precision.</p>
+        </div>
+      </article>
+
+      <article class="card" data-category="arctic">
+        <img src="https://images.unsplash.com/photo-1589656966895-2f33e7653819?auto=format&fit=crop&w=900&q=80" alt="Polar bear walking across snow" />
+        <div class="caption">
+          <h2>Polar Bear</h2>
+          <p>A strong Arctic predator adapted to sea ice and cold water.</p>
+        </div>
+      </article>
+
+      <article class="card" data-category="big-cats">
+        <img src="https://images.unsplash.com/photo-1456926631375-92c8ce872def?auto=format&fit=crop&w=900&q=80" alt="Leopard standing on a tree branch" />
+        <div class="caption">
+          <h2>Leopard</h2>
+          <p>A versatile climber with beautiful rosette-patterned fur.</p>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    const buttons = document.querySelectorAll("[data-filter]");
+    const cards = document.querySelectorAll(".card");
+    const counter = document.querySelector("#counter");
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const filter = button.dataset.filter;
+        let visibleCount = 0;
+
+        buttons.forEach((item) => item.classList.remove("active"));
+        button.classList.add("active");
+
+        cards.forEach((card) => {
+          const shouldShow = filter === "all" || card.dataset.category === filter;
+          card.classList.toggle("hidden", !shouldShow);
+
+          if (shouldShow) {
+            visibleCount += 1;
+          }
+        });
+
+        counter.textContent = filter === "all"
+          ? "Showing all photos"
+          : `Showing ${visibleCount} photo${visibleCount === 1 ? "" : "s"}`;
+      });
+    });
+  </script>
+</body>
+</html>
